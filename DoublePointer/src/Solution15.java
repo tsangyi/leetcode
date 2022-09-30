@@ -3,6 +3,7 @@ import java.util.*;
 
 /**
  * 三数之和
+ * 头尾指针
  *
  * @author tsangyi
  * @date 2022/10/1
