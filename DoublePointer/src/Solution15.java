@@ -5,6 +5,7 @@ import java.util.*;
  * 三数之和
  *
  * @author tsangyi
+ * @date 2022/10/1
  */
 public class Solution15 {
 
@@ -19,32 +20,41 @@ public class Solution15 {
 
     public static List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
+        //  从小到大排序
         Arrays.sort(nums);
         for (int i = 0; i < nums.length; i++) {
             //  排序后第一个数大于0直接返回
             if (nums[i] > 0) {
                 return result;
             }
+            //  第一个数nums[i]相等直接右滑动
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
-
+            //  初始化的左右 数组下标
             int left = i + 1;
             int right = nums.length - 1;
-            while (right > left) {
+            //  左右数组下标没有相遇
+            while (left < right) {
+                //  三数求和
                 int sum = nums[i] + nums[left] + nums[right];
                 if (sum > 0) {
+                    //  大于nums[right]往左边移动
                     right--;
                 } else if (sum < 0) {
+                    //  小于nums[left]往右边边移动
                     left++;
                 } else {
                     result.add(Arrays.asList(nums[i], nums[left], nums[right]));
-                    while (right > left && nums[right] == nums[right - 1]) {
+                    while (left < right  && nums[right] == nums[right - 1]) {
+                        //  nums[right]左邻相同直接--
                         right--;
                     }
                     while (right > left && nums[left] == nums[left + 1]) {
+                        //  nums[left]右邻相同直接--
                         left++;
                     }
+                    //  两边继续往中间滑动
                     right--;
                     left++;
                 }
