@@ -3,6 +3,7 @@ import java.util.*;
 
 /**
  * 三数之和
+ *
  * @author tsangyi
  */
 public class Solution15 {
@@ -10,16 +11,54 @@ public class Solution15 {
     public static void main(String[] args) {
 
         int[] ints = {-1, 0, 1, 2, -1, -4};
-        threeSum(ints);
+        List<List<Integer>> lists = threeSum(ints);
+        System.out.println(lists.toString());
 
 
     }
 
     public static List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            //  排序后第一个数大于0直接返回
+            if (nums[i] > 0) {
+                return result;
+            }
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
 
-        return null;
+            int left = i + 1;
+            int right = nums.length - 1;
+            while (right > left) {
+                int sum = nums[i] + nums[left] + nums[right];
+                if (sum > 0) {
+                    right--;
+                } else if (sum < 0) {
+                    left++;
+                } else {
+                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    while (right > left && nums[right] == nums[right - 1]) {
+                        right--;
+                    }
+                    while (right > left && nums[left] == nums[left + 1]) {
+                        left++;
+                    }
+                    right--;
+                    left++;
+                }
+            }
+        }
+        return result;
     }
+
+}
+
+
+
+
+
 
     /**
      * 给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] + nums[j] + nums[k] == 0 。请
@@ -63,4 +102,4 @@ public class Solution15 {
      * 链接：https://leetcode.cn/problems/3sum
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      */
-}
+
