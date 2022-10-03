@@ -27,6 +27,7 @@ public class Solution365 {
             //  重复
             while (cur != i) {
                 int nxt = nums[cur];
+                //  经过此元素
                 nums[cur] = -1;
                 len++;
                 cur = nxt;
