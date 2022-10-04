@@ -15,30 +15,28 @@ public class Solution34 {
     public static int[] searchRange(int[] nums, int target) {
         System.out.println(nums.length);
         System.out.println(3 / 2);
+        int length = nums.length;
 
-        int left;
-        int right;
 
-        int length = nums.length - 1;
-        for (int i = 0; i < length; i++) {
-            if (nums[length / 2] < target) {
-                left = length / 2;
-            }
-        }
+        int left = 0;
+        int right = length - 1;
+
+        search(nums, target, left, right);
         return nums;
     }
 
 
     public static int[] search(int[] nums, int target, int left, int right) {
-        int length = nums.length;
 
-        for (int i = 0; i <length; i++) {
-            if (nums[length / 2] < target) {
-                left = length / 2;
-            }
-            search(nums,target,left,right);
-
+        if (nums[left] < target) {
+            left = left / 2;
+            search(nums, target, left, right);
         }
+        if (nums[left] > target) {
+            right = right / 2;
+            search(nums, target, left, right);
+        }
+
         return nums;
     }
 
