@@ -9,35 +9,37 @@ public class Solution34 {
 
     public static void main(String[] args) {
         int[] ints = {5, 7, 7, 8, 8, 10};
-        searchRange(ints, 8);
+        int[] ints1 = searchRange(ints, 8);
     }
 
     public static int[] searchRange(int[] nums, int target) {
-        System.out.println(nums.length);
-        System.out.println(3 / 2);
-        int length = nums.length;
-
-
-        int left = 0;
-        int right = length - 1;
-
-        search(nums, target, left, right);
-        return nums;
+        int[] res = new int[] {-1, -1};
+        res[0] = binarySearch(nums, target, true);
+        res[1] = binarySearch(nums, target, false);
+        return res;
     }
 
 
-    public static int[] search(int[] nums, int target, int left, int right) {
-
-        if (nums[left] < target) {
-            left = left / 2;
-            search(nums, target, left, right);
+    //leftOrRight为true找左边界 false找右边界
+    public static int binarySearch(int[] nums, int target, boolean leftOrRight) {
+        int res = -1;
+        int left = 0, right = nums.length - 1, mid;
+        while(left <= right) {
+            mid = left + (right - left) / 2;
+            if(target < nums[mid])
+                right = mid - 1;
+            else if(target > nums[mid])
+                left = mid + 1;
+            else {
+                res = mid;
+                //处理target == nums[mid]
+                if(leftOrRight)
+                    right = mid - 1;
+                else
+                    left = mid + 1;
+            }
         }
-        if (nums[left] > target) {
-            right = right / 2;
-            search(nums, target, left, right);
-        }
-
-        return nums;
+        return res;
     }
 
 
